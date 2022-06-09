@@ -1,15 +1,23 @@
 <?php
 	
-use PHPUnit\Framework\TestCase; 
+use PHPUnit\Framework\TestCase;
+use App\Article;
+use Hamcrest\Core\HasToString;
 
-class ArticleTest extends \PHPUnit\Framework\TestCase {
+class ArticleTest extends TestCase {
 
 	protected $article;
 
 	public function testTitleIsEmptyByDefault() {
+      $titleEmpty = new Article;
+      $result = $titleEmpty->title;
+      $this->assertEmpty($result);
     }
 
     public function testSlugIsEmtpyWithNoTile() {
+        $slugEmpty = new Article;
+        $result = $slugEmpty->getSlug();
+        $this->assertEmpty($result);
     }
 
     public function provider() {
@@ -25,7 +33,10 @@ class ArticleTest extends \PHPUnit\Framework\TestCase {
      * @dataProvider provider
      */
     public function testSlug($title, $slug) {
-
+       $article = new Article;
+       $article->title = $title;
+       $article->getSlug();
+       $this->assertEquals($article->getSlug(), $slug);
     }
 }
 	
